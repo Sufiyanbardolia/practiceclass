@@ -1,1 +1,15 @@
+.Button-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.add-icone{
+    background-color: orange;
+    cursor: pointer;
+    cursor: pointer;
+    margin: -4px 10px;
+    border: solid 2px black;
+    border-radius: 25%;
 
+
+}

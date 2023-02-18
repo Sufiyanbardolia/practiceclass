@@ -6,14 +6,23 @@ import {useNavigate } from "react-router-dom";
 import { addQuantity, handleDrcementQty, handleIncrementQty } from "../Utility";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import { useDispatch,useSelector } from "react-redux";
+
 
 export const Home=()=>{
-    const [data,setData]=useState([])
-    const [copyData,setCopyData]=useState([])
-    const [addToCard,setAddToCard]=useState([])
-    const [category,setCategory]=useState([])
+    const  dispatch=useDispatch()
+    const select=useSelector((state)=>state)
+    const ProductReducer=select.ProductReducer
+
+
+    const [data,setData]=useState(select.ProductReducer.product);
+    const [copyData,setCopyData]=useState(select.ProductReducer.product);
+    const [addToCard,setAddToCard]=useState(select.ProductReducer.card);
+    const [category,setCategory]=useState(select.ProductReducer.categories);
     const [search,setSearch]=useState('')
     const navigate=useNavigate()
+    console.log("select", ProductReducer.product)
+    
     
 
     // const getData= async ()=>{
@@ -22,20 +31,50 @@ export const Home=()=>{
     //     setData(res.data)
     // }
     async function addData(){
-        const getData= await axios.get("https://fakestoreapi.com/products")
-        console.log(getData);
-        setData(addQuantity(getData.data)) ;
-        setCopyData(addQuantity(getData.data) );
+
+        if(select.ProductReducer.product.length>0){
+            setData(select.ProductReducer.product)
+            setCopyData(select.ProductReducer.product)
+        }else{
+
         
-        const res= await axios.get('https://fakestoreapi.com/products/categories')
-        setCategory([...res.data,"All"])
+
+        const getData= await axios.get("https://fakestoreapi.com/products");
+        dispatch({
+            type:"ADD_PRODUCT",
+            payload:addQuantity(getData.data)
+        })
+        setData(addQuantity(getData.data))
+        setCopyData(addQuantity(getData.data))
+        console.log(getData);
+       
     }
+    if(select.ProductReducer.categories.length>0){
+        setCategory(select.ProductReducer.categories)
+    
+    }else{
+
+    
+        const res= await axios.get('https://fakestoreapi.com/products/categories')
+        dispatch({
+            type:"ADD_categories",
+            payload:[...res.data,"All"]
+        })
+        setCategory([...res.data,"All"])
+
+    //    console.log(ProductReducer.category);
+    }
+}
     
     const handleAddtoCard=(item)=>{
 
         const duplicateCart=addToCard.some((elem)=> elem.id==item.id)
         if(!duplicateCart){
         setAddToCard([...addToCard,item])
+        dispatch({
+            type:"ADD_TO_CART",
+            payload:[...addToCard,item]
+        })
         }
     }
     
@@ -52,12 +91,17 @@ export const Home=()=>{
         setData(search)
     }}
     const handleNavigate=(item)=>{
+        
         navigate('./Detail',{state:item})
     }
     const handleIncrement=(id)=>{
         const res= handleIncrementQty(copyData,id);
         setData(res);
         setCopyData(res)
+        dispatch({
+            type:"ADD_PRODUCT",
+            payload:res
+        })
     }
     const handleDecrement=(id)=>{
         const res= handleDrcementQty(copyData,id);

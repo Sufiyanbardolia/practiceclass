@@ -3,7 +3,7 @@ import {Button, Card, CardContent, Grid, TextField, Badge} from "@mui/material"
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import axios from "axios"
 import {useNavigate } from "react-router-dom";
-import { addQuantity, handleDrcementQty, handleIncrementQty } from "../Utility";
+import { activateLoader, addQuantity, deactivateLoader, handleDrcementQty, handleIncrementQty } from "../Utility";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { useDispatch,useSelector } from "react-redux";
@@ -36,14 +36,14 @@ export const Home=()=>{
             setData(select.ProductReducer.product)
             setCopyData(select.ProductReducer.product)
         }else{
-
-        
-
-        const getData= await axios.get("https://fakestoreapi.com/products");
+            activateLoader(dispatch)
+          const getData= await axios.get("https://fakestoreapi.com/products");
         dispatch({
             type:"ADD_PRODUCT",
             payload:addQuantity(getData.data)
         })
+        deactivateLoader(dispatch)
+
         setData(addQuantity(getData.data))
         setCopyData(addQuantity(getData.data))
         console.log(getData);
@@ -107,6 +107,7 @@ export const Home=()=>{
         const res= handleDrcementQty(copyData,id);
         setData(res);
         setCopyData(res)
+       
     }
 
    

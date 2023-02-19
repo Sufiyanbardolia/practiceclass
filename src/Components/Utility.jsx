@@ -1,3 +1,5 @@
+import { display } from "@mui/system";
+
 export const addQuantity=(arr)=>{
     const res=arr.map((item)=>{
         return{...item,Quantity:10,userQuantity:0}
@@ -23,6 +25,20 @@ export const handleIncrementQty=(arr,id)=>{
             }
         })
          return res
+    }
+    export const activateLoader=(dispatch)=>{
+        dispatch({
+            type:"LOADER-ACTIVATE",
+            payload: true
+
+        })
+    }
+    export const deactivateLoader=(dispatch)=>{
+        dispatch({
+            type:"LOADER-DEACTIVATE",
+            payload: false
+
+        })
     }
 
  

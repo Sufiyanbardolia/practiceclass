@@ -9,13 +9,13 @@ export const Counter = () => {
     }
   return (
     <div>
-      <Button variant='contained' color='success' onClick={()=>handleCounter(+1)}>
+      {/* <Button variant='contained' color='success' onClick={()=>handleCounter(+1)}>
         Increment
       </Button>
         {/* <h1>Counter</h1> */}
         <h1>{count}</h1>
         <Button variant='contained' color='error' disabled={count <=0}
-        onClick={()=>handleCounter(-1)}>Decrement </Button>
+        onClick={()=>handleCounter(-1)}>Decrement </Button> */}
 
     </div>
   )

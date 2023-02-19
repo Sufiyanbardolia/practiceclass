@@ -2,6 +2,8 @@ const initialState={
     card:[],
     product:[],
     categories:[],
+    loader:false
+   
 }
 
 export  const ProductReducer=(state=initialState,action)=>{
@@ -23,11 +25,24 @@ export  const ProductReducer=(state=initialState,action)=>{
                         ...state,
                         categories:action.payload
                     }
+                    break;
+                    case "LOADER_ACTIVATE":
+                    return{
+                        ...state,
+                        loader: true
+                    }
+                    break;
+                    case "LOADER_DEACTIVATE":
+                        return{
+                            ...state,
+                            loader: false
+                        }
+                        break
+                    }
+                    return state
+                    
+                }
+                    
                 
             
-            break;
     
-    }
-    return state
-    
-}

@@ -1,13 +1,19 @@
 import React from "react"
 import "./NavBar.css"
 import { Link } from "react-router-dom"
+import { TextField } from "@mui/material"
 
 export const NavBar=()=>{
     return(
      <div className="navbar">
          <div className="logo-container">
-                 <h3>Career Next</h3>
+                 <h3>Career Next</h3> 
         </div>
+        <div>
+        
+         <TextField placeholder="search here..." className="search"/>
+        </div>
+       
      <div className="nav-container">
          <ul>
             <li> <Link to="/">Home</Link> </li>

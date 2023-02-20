@@ -8,7 +8,8 @@ export const Contact = () => {
   const dispatch=useDispatch()
   const carData=select.CarReducer.carData
   const [data,setData]=useState([])
-  const [page,setPage]=useState(8)
+  const [page,setPage]=useState(8) 
+
 
   const getCartData=async()=>{
     const res = await axios.get("https://myfakeapi.com/api/cars/")

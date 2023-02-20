@@ -7,6 +7,6 @@ export const SubAbout = (props) => {
         <h1>Child</h1>
        <input type="text" value={text} onChange={(e)=> handleChange(e.target.value)} style={{width:"500px",padding:"20px"}}/>
        
-    </div>
+    </div> 
   )
 }

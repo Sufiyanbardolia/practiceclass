@@ -2,7 +2,8 @@ const initialState={
     card:[],
     product:[],
     categories:[],
-    loader:false
+    loader:false,
+    searchData:"",
    
 }
 
@@ -29,15 +30,20 @@ export  const ProductReducer=(state=initialState,action)=>{
                     case "LOADER_ACTIVATE":
                     return{
                         ...state,
-                        loader: true
+                        loader: action.payload
                     }
                     break;
                     case "LOADER_DEACTIVATE":
                         return{
                             ...state,
-                            loader: false
+                            loader: action.payload 
                         }
                         break
+                        case "SEARCH-DATA":
+                            return{
+                                ...state,
+                                searchData:action.payload
+                            }
                     }
                     return state
                     

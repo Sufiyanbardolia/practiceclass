@@ -17,7 +17,7 @@ function App() {
   
   return (
     <div className="App">
-      {loader&& <Loader/>}
+      {loader && <Loader/>}
       
        <RouteData/>
       {/* <Loader/> */}
